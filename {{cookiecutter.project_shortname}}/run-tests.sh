@@ -5,4 +5,6 @@ pipenv run pydocstyle {{ cookiecutter.package_name }} tests docs && \
 pipenv run isort -rc -c -df && \
 pipenv run check-manifest --ignore ".travis-*,docs/_build*" && \
 pipenv run sphinx-build -qnNW docs docs/_build/html && \
-pipenv run test
+# workaround see: https://github.com/inveniosoftware/invenio-app/issues/31
+FLASK_DEBUG=False pipenv run test
+# pipenv run test

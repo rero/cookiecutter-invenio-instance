@@ -70,6 +70,19 @@ services:
       - es
       - mq
       - db
+  # Beat
+  beat:
+    extends:
+      file: docker-services.yml
+      service: app
+    restart: "always"
+    command: "pipenv run celery beat -A invenio_app.celery --loglevel=INFO"
+    image: rero-ils-beat
+    links:
+      - cache
+      - es
+      - mq
+      - db
   # Monitoring
   flower:
     extends:
